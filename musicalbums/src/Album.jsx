@@ -78,3 +78,4 @@ export default Album;
 // });
 
 // export default connect(mapStateToProps)(Album);
+//hello

@@ -1,26 +1,35 @@
-import "./App.css";
-import Album from "./Album";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AddAlbum from "./Addalbum";
-import Navbar from "./Navbar";
-import Home from "./Home";
-import Songs from "./Songs";
-
+import { useEffect } from "react";
+import "./App.scss";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Header from "./module/Header/Header";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import AddAlbums from "./Pages/AddAlbums/AddAlbums";
+import Library from "./Pages/Library/Library";
+import AlbumsDetails from "./Pages/AlbumsDetails/AlbumsDetails";
+import PlaylistDetails from "./Pages/PlaylistDetails/PlaylistDetails";
+import { useDispatch } from "react-redux";
+import { fakedataPopulate } from "./Redux/GeneralSlice";
+import { fakeData } from "./assets/fakeData";
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fakedataPopulate(fakeData));
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/albums" exact component={Album} />
-            <Route path="/form" component={AddAlbum} />
-            <Route path="/albums/songs/:id" exact component={Songs} />
-          </Switch>
-        </Router>
-      </header>
-    </div>
+    <>
+      <Router>
+        <div className="App bg-black">
+          <Header />
+          <div className="d-flex flex-column min-vh-100">
+            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/add-album" component={AddAlbums} />
+            <Route exact path="/albums" component={AlbumsDetails} />
+            <Route exact path="/library" component={Library} />
+            <Route exact path="/playlist-details" component={PlaylistDetails} />
+          </div>
+        </div>
+      </Router>
+    </>
   );
 }
 

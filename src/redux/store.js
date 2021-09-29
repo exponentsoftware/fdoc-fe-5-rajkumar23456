@@ -1,10 +1,8 @@
-import { createStore } from "redux";
-import { reducers } from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import GeneralReducer from "./GeneralSlice";
 
-const store = createStore(
-  reducers,
-  {},
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-export default store;
+export default configureStore({
+  reducer: {
+    global: GeneralReducer,
+  },
+});
